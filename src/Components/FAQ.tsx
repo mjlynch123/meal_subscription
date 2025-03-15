@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
+import { ChevronDown } from 'lucide-react';
 
 const faqs = [
     {
@@ -26,35 +26,37 @@ const faqs = [
     }
 ];
 
-export default function FAQ() {
+const FAQ = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [ref, inView] = useInView({
-        threshold: 0.2,
-        triggerOnce: true
+        triggerOnce: true,
+        threshold: 0.1
     });
 
     return (
-        <section className='py-20 bg-white' id='faq'>
-            <div className='container mx-auto px-4'>
+        <section className="py-20 bg-white" id="faq">
+            <div className="container mx-auto px-4">
                 <motion.div
                     ref={ref}
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8 }}
-                    className='max-w-3xl mx-auto text-center mb-12'
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
                 >
-                    <h2 className='text-4xl font-bold mb-4'>Frequently Asked Questions</h2>
-                    <p className='text-greay-600 max-w-2xl mx-auto'>Find answers to common questions about our meal subscription service</p>
+                    <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                    <p className="text-gray-600 max-w-2xl mx-auto">
+                        Find answers to common questions about our meal subscription service.
+                    </p>
                 </motion.div>
 
-                <div className='max-w-3xl mx-auto'>
+                <div className="max-w-3xl mx-auto">
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className='mb-4'
+                            className="mb-4"
                         >
                             <button
                                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -66,17 +68,18 @@ export default function FAQ() {
                                         }`}
                                 />
                             </button>
-
                             <AnimatePresence>
                                 {openIndex === index && (
                                     <motion.div
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
                                         transition={{ duration: 0.3 }}
-                                        className='px-6 py-4 bg-gray-100 rounded-lg'
+                                        className="overflow-hidden"
                                     >
-                                        <p className='text-gray-700'>{faq.answer}</p>
+                                        <div className="p-6 bg-gray-50 rounded-b-lg">
+                                            <p className="text-gray-600">{faq.answer}</p>
+                                        </div>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -85,5 +88,7 @@ export default function FAQ() {
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
+
+export default FAQ;

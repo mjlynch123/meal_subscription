@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Hero from './Components/Hero'
 import HowItWorks from './Components/HowItWorks'
+import Pricing from './Components/Pricing'
 import FAQ from './Components/FAQ'
 import './App.css'
 
@@ -11,6 +12,7 @@ function App() {
     <div className='bg-white'>
       <Hero />
       <HowItWorks />
+      <Pricing />
       <FAQ />
     </div>
   )
