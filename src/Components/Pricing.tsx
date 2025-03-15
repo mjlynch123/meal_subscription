@@ -81,7 +81,7 @@ export default function Pricing() {
                     {plans.map((plan, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 50 }}
+                            initial={{ opacity: 0, y: 20 }}
                             animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.6, delay: index * 0.2 }}
                             className={`relative rounded-2xl overflow-hidden shadow-xl ${plan.gradient} flex flex-col justify-between ${plan.padding} ${plan.scale} transition-transform`}
