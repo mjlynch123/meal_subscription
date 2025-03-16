@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Check } from 'lucide-react';
+import MultiStepSignup from './SignupForm'; // Import the Signup form
 
 const plans = [
     {
@@ -16,7 +17,7 @@ const plans = [
         ],
         popular: false,
         gradient: 'bg-gradient-to-br from-gray-200 to-gray-300',
-        scale: 'scale-100', // Default size
+        scale: 'scale-100',
         padding: 'p-8'
     },
     {
@@ -32,8 +33,8 @@ const plans = [
         ],
         popular: true,
         gradient: 'bg-gradient-to-br from-yellow-400 to-yellow-500',
-        scale: 'scale-105', // Make this card larger
-        padding: 'p-10' // Extra padding for larger look
+        scale: 'scale-105',
+        padding: 'p-10'
     },
     {
         name: 'Elite Plan',
@@ -49,16 +50,16 @@ const plans = [
         ],
         popular: false,
         gradient: 'bg-gradient-to-br from-gray-700 to-gray-800 text-white',
-        scale: 'scale-100', // Default size
+        scale: 'scale-100',
         padding: 'p-8'
     }
 ];
 
 export default function Pricing() {
-    const [ref, inView] = useInView({
-        triggerOnce: true,
-        threshold: 0.1
-    });
+    const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+    // **State to track the selected plan and show the signup form**
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
     return (
         <section className="py-20 bg-white" id="pricing">
@@ -77,6 +78,7 @@ export default function Pricing() {
                     </p>
                 </motion.div>
 
+                {/* Pricing Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {plans.map((plan, index) => (
                         <motion.div
@@ -106,9 +108,11 @@ export default function Pricing() {
                                     ))}
                                 </ul>
                             </div>
+                            {/* Updated "Get Started" Button */}
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => setSelectedPlan(plan.name)} // Open signup form with selected plan
                                 className="w-full mt-8 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-black hover:bg-gray-100"
                             >
                                 Get Started
@@ -117,6 +121,9 @@ export default function Pricing() {
                     ))}
                 </div>
             </div>
+
+            {/* Show Signup Form if a Plan is Selected */}
+
         </section>
     );
 }

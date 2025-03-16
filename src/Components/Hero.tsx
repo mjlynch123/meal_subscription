@@ -3,6 +3,12 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div className="relative min-h-screen flex items-center">
       {/* Background Image with Overlay */}
@@ -36,14 +42,18 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection("pricing")} // 👈 Scrolls to Plans section
               className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-full flex items-center gap-2 hover:shadow-lg transition-all duration-300"
             >
               View Plans
               <ArrowRight className="w-5 h-5" />
             </motion.button>
+
+            {/* Learn More Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection("features")} // 👈 Scrolls to Features section
               className="px-8 py-4 bg-white/10 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
             >
               Learn More
